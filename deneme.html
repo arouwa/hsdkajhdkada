@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window Opener</title>
+    <style>
+        .moving-window {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function openWindows() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    let win = window.open('', '', 'width=200,height=200');
+                    win.document.body.innerHTML = '<div class="moving-window"></div>';
+                    moveWindow(win);
+                }, i * 1000);
+            }
+        }
+
+        function moveWindow(win) {
+            let angle = 0;
+            setInterval(() => {
+                let x = 100 * Math.cos(angle);
+                let y = 100 * Math.sin(angle);
+                angle += 0.1;
+                win.moveBy(x, y);
+            }, 50);
+        }
+
+        setInterval(openWindows, 1000);
+    </script>
+</body>
+</html>
